@@ -1,0 +1,1 @@
+"""TaskSwap core application package."""

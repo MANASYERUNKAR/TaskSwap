@@ -1,0 +1,2 @@
+{# Quiet Utility reminder: restrained workbench for protected moderation, with explicit route-level status. #}
+{% extends "core/base.html" %}{% block content %}<section class="admin-wrap reveal"><aside class="admin-nav"><p class="eyebrow">Protected moderation</p><h1>TaskSwap admin.</h1><nav aria-label="Administration navigation"><a href="{% url 'admin_dashboard' %}">Overview</a><a href="{% url 'admin_users' %}">Users</a><a href="{% url 'admin_tasks' %}">Tasks</a></nav></aside><div class="admin-content">{% block admin_content %}{% endblock %}</div></section>{% endblock %}

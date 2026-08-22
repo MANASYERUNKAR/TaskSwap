@@ -1,0 +1,36 @@
+{# Quiet Utility reminder: porcelain/ink/TaskSwap Blue, oversized system type, and deliberate empty space. #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="TaskSwap is a local place to post a small task and find practical help.">
+    <title>{% block title %}TaskSwap{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header" data-header>
+        <div class="nav-shell">
+            <a href="{% url 'home' %}" class="brand" aria-label="TaskSwap home"><span class="brand-mark" aria-hidden="true">TS</span><span class="brand-wordmark">TaskSwap</span></a>
+            <button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false" data-menu-toggle><span class="sr-only">Toggle navigation</span><span></span><span></span></button>
+            <nav id="primary-nav" class="primary-nav" aria-label="Main navigation" data-primary-nav>
+                <a href="{% url 'home' %}">Browse</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'task_create' %}">Post a task</a><a href="{% url 'dashboard' %}">Dashboard</a>
+                    {% if user.is_admin %}<a href="{% url 'admin_dashboard' %}">Moderation</a>{% endif %}
+                    <a href="{% url 'profile' %}" class="nav-account">{{ user.name }}</a>
+                    <form method="post" action="{% url 'logout' %}" class="inline-form">{% csrf_token %}<button type="submit" class="nav-link-button">Sign out</button></form>
+                {% else %}
+                    <a href="{% url 'login' %}">Sign in</a><a href="{% url 'signup' %}" class="nav-cta">Join TaskSwap</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    {% if messages %}<div class="message-stack" aria-live="polite">{% for message in messages %}<div class="message message--{{ message.tags|default:'info' }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+    <main id="main-content">{% block content %}{% endblock %}</main>
+    <footer class="site-footer"><div class="footer-shell"><p><strong>TaskSwap</strong> · Small asks. Practical help.</p><p>Local exchanges, clearly arranged.</p></div></footer>
+    <script src="{% static 'core/js/app.js' %}" defer></script>
+</body>
+</html>
